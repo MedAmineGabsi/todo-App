@@ -23,6 +23,7 @@ input:focus {
   border-radius: 3px;
   border-style: solid;
   padding: 8px;
+  cursor: grab;
 }
 
 .btn-primary {
@@ -34,7 +35,20 @@ input:focus {
 
 .btn-primary:hover {
   color: #fff;
+  border-color: rgb(83, 197, 48);
+  background-color: rgb(83, 197, 48);
+}
+
+.btn-danger {
+  color: rgb(161, 57, 57);
+  border-color: rgb(161, 57, 57);
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.btn-danger:hover {
+  color: #fff;
   border-color: rgb(161, 57, 57);
   background-color: rgb(161, 57, 57);
-  cursor: grab;
+  transition: 0.3s;
 }
