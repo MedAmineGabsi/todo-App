@@ -21,7 +21,15 @@ class App extends Component {
     this.removeTodo = this.removeTodo.bind(this);
   }
   addTodo(todoText) {
-    console.log("TODOS: " + todoText);
+    let todos = this.state.todos;
+    todos.push({ id: this.state.nextId, text: todoText });
+    this.setState({
+      todos: todos,
+      nextId: this.state.nextId + 1,
+    });
+    console.log(
+      "Added Todo this is the new state:" + JSON.stringify(this.state)
+    );
   }
   removeTodo(id) {
     console.log("Removed: " + id);
@@ -32,7 +40,7 @@ class App extends Component {
         <div className="todo-wrapper">
           <Header />
           <TodoInput todoText="" addTodo={this.addTodo} />
-          <ul style={{listStyleType: "decimal"}}>
+          <ul style={{ listStyleType: "decimal" }}>
             {this.state.todos.map((todo) => {
               return (
                 <TodoItem
@@ -44,7 +52,6 @@ class App extends Component {
               );
             })}
           </ul>
-          
         </div>
       </div>
     );
