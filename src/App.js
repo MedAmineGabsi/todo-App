@@ -32,7 +32,11 @@ class App extends Component {
     );
   }
   removeTodo(id) {
-    console.log("Removed: " + id);
+    let todos = this.state.todos
+    this.setState({
+      todos: todos.filter(todo => todo.id !== id),
+      nextId: this.state.nextId - 1
+    })
   }
   render() {
     return (
