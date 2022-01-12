@@ -52,3 +52,17 @@ input:focus {
   background-color: rgb(161, 57, 57);
   transition: 0.3s;
 }
+
+.btn-warn {
+  color: rgb(218, 151, 29);
+  border-color: rgb(218, 151, 29);
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.btn-warn:hover {
+  color: #fff;
+  border-color: rgb(218, 151, 29);
+  background-color: rgb(218, 151, 29);
+  transition: 0.3s;
+}

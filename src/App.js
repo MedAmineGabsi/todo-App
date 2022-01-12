@@ -10,9 +10,9 @@ class App extends Component {
 
     this.state = {
       todos: [
-        { id: 0, text: "Deliver Pizza" },
-        { id: 1, text: "Learn React TypeScript" },
-        { id: 2, text: "Take a shower" },
+        { id: 0, text: "Deliver Pizza", class: "Deliver-Pizza" },
+        { id: 1, text: "Learn React TypeScript", class: "Learn-React-TypeScript"},
+        { id: 2, text: "Take a shower", class: "Take-a-shower" },
       ],
       nextId: 3,
     };
@@ -22,7 +22,8 @@ class App extends Component {
   }
   addTodo(todoText) {
     let todos = this.state.todos;
-    todos.push({ id: this.state.nextId, text: todoText });
+    let todoClass = todoText.split(" ").join("-")
+    todos.push({ id: this.state.nextId, text: todoText, class: todoClass });
     this.setState({
       todos: todos,
       nextId: this.state.nextId + 1,
@@ -49,7 +50,7 @@ class App extends Component {
               return (
                 <TodoItem
                   todo={todo}
-                  key={todo.id}
+                  key={todo.text}
                   id={todo.id}
                   removeTodo={this.removeTodo}
                 />
