@@ -5,7 +5,7 @@ export default class TodoInput extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: "Test the state" };
+    this.state = { value: "My first Task" };
 
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
