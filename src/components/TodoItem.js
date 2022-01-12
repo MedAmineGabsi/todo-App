@@ -7,10 +7,36 @@ export default class TodoItem extends Component {
 
     this.state = {
       lined: false,
+      crypted: false,
     };
 
     this.crossTodo = this.crossTodo.bind(this);
+    this.hashTodo = this.hashTodo.bind(this);
   }
+
+  hashTodo() {
+    if (!this.state.crypted) {
+      console.log("crypted: " + this.props.todo.text);
+      const textToBinary = (str) => {
+        let res = "";
+        res = str
+          .split("")
+          .map((char) => {
+            return char.charCodeAt(0).toString(2);
+          })
+          .join(" ");
+        return res;
+      };
+      let binaryMode = textToBinary(this.props.todo.text);
+      document.getElementsByClassName(this.props.todo.class)[0].innerHTML =
+        binaryMode;
+      this.setState({
+        lined: this.state.lined,
+        crypted: true,
+      });
+    }
+  }
+
   crossTodo() {
     if (!this.state.lined) {
       console.log("crossed: " + this.props.todo.text);
@@ -40,6 +66,9 @@ export default class TodoItem extends Component {
         <div className="todoWrapper">
           <span className={this.props.todo.class}>{this.props.todo.text}</span>
           <div>
+            <button className="btn btn-bin" onClick={() => {this.hashTodo()}}>
+              Convert to Bin
+            </button>
             <button
               className="btn btn-warn linedTodo"
               onClick={() => {

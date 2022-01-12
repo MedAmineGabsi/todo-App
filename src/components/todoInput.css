@@ -66,3 +66,17 @@ input:focus {
   background-color: rgb(218, 151, 29);
   transition: 0.3s;
 }
+
+.btn-bin {
+  color: rgb(64, 29, 218);
+  border-color: rgb(64, 29, 218);
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.btn-bin:hover {
+  color: #fff;
+  border-color: rgb(64, 29, 218);
+  background-color: rgb(64, 29, 218);
+  transition: 0.3s;
+}
