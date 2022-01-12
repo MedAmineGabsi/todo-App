@@ -8,6 +8,7 @@ export default class TodoItem extends Component {
 
   render() {
     return (
+      <li>
         <div className="todoWrapper">
           <span>{this.props.todo.text}</span>
           <button
@@ -19,6 +20,7 @@ export default class TodoItem extends Component {
             Delete
           </button>
         </div>
+      </li>
     );
   }
 }

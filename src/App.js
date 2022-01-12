@@ -32,7 +32,7 @@ class App extends Component {
         <div className="todo-wrapper">
           <Header />
           <TodoInput todoText="" addTodo={this.addTodo} />
-          <li>
+          <ul style={{listStyleType: "decimal"}}>
             {this.state.todos.map((todo) => {
               return (
                 <TodoItem
@@ -43,7 +43,8 @@ class App extends Component {
                 />
               );
             })}
-          </li>
+          </ul>
+          
         </div>
       </div>
     );
