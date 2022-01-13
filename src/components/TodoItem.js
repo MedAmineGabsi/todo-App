@@ -8,6 +8,7 @@ export default class TodoItem extends Component {
     this.state = {
       lined: false,
       crypted: false,
+      bin: "",
     };
 
     this.crossTodo = this.crossTodo.bind(this);
@@ -33,6 +34,19 @@ export default class TodoItem extends Component {
       this.setState({
         lined: this.state.lined,
         crypted: true,
+        bin: binaryMode,
+      });
+    } else {
+      let binaries = this.state.bin.split(" ");
+      let stringMode = binaries
+        .map((e) => String.fromCharCode(parseInt(e, 2)))
+        .join("");
+      document.getElementsByClassName(this.props.todo.class)[0].innerHTML =
+        stringMode;
+      this.setState({
+        lined: this.state.lined,
+        crypted: false,
+        bin: this.state.bin,
       });
     }
   }
@@ -66,8 +80,13 @@ export default class TodoItem extends Component {
         <div className="todoWrapper">
           <span className={this.props.todo.class}>{this.props.todo.text}</span>
           <div>
-            <button className="btn btn-bin" onClick={() => {this.hashTodo()}}>
-              Convert to Bin
+            <button
+              className="btn btn-bin"
+              onClick={() => {
+                this.hashTodo();
+              }}
+            >
+              Convert to {this.state.crypted ? "String" : "Bin"}
             </button>
             <button
               className="btn btn-warn linedTodo"
@@ -75,7 +94,7 @@ export default class TodoItem extends Component {
                 this.crossTodo();
               }}
             >
-              Cross
+              {this.state.lined ? "Uncross" : "Cross"}
             </button>
             <button
               className="btn btn-danger removeTodo"
