@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./todoItem.css";
+import swal from "sweetalert";
 
 export default class TodoItem extends Component {
   constructor(props) {
@@ -8,46 +9,50 @@ export default class TodoItem extends Component {
     this.state = {
       lined: false,
       crypted: false,
-      bin: "",
+      hash: "",
     };
 
     this.crossTodo = this.crossTodo.bind(this);
     this.hashTodo = this.hashTodo.bind(this);
   }
-
   hashTodo() {
     if (!this.state.crypted) {
-      console.log("crypted: " + this.props.todo.text);
-      const textToBinary = (str) => {
-        let res = "";
-        res = str
+      console.log("Crypted: " + this.props.todo.text);
+      const textTohash = (str) => {
+        let res = str
           .split("")
           .map((char) => {
-            return char.charCodeAt(0).toString(2);
+            return String.fromCharCode(char.charCodeAt(0) + 75);
           })
-          .join(" ");
+          .join("");
         return res;
       };
-      let binaryMode = textToBinary(this.props.todo.text);
+      let hashMode = textTohash(this.props.todo.text);
       document.getElementsByClassName(this.props.todo.class)[0].innerHTML =
-        binaryMode;
+        hashMode;
       this.setState({
         lined: this.state.lined,
         crypted: true,
-        bin: binaryMode,
+        hash: hashMode,
       });
     } else {
-      let binaries = this.state.bin.split(" ");
-      let stringMode = binaries
-        .map((e) => String.fromCharCode(parseInt(e, 2)))
-        .join("");
-      document.getElementsByClassName(this.props.todo.class)[0].innerHTML =
-        stringMode;
-      this.setState({
-        lined: this.state.lined,
-        crypted: false,
-        bin: this.state.bin,
-      });
+      var password = prompt("Type your password: ");
+      if (password === this.props.password) {
+        let hashed = this.state.hash.split("");
+        let unHashMode = hashed
+          .map((e) => String.fromCharCode(e.charCodeAt(0) - 75))
+          .join("");
+        document.getElementsByClassName(this.props.todo.class)[0].innerHTML =
+          unHashMode;
+        this.setState({
+          lined: this.state.lined,
+          crypted: false,
+          hash: this.state.hash,
+        });
+        swal("You pass", "Uncrypted Task: " + this.props.todo.text, "success");
+      } else {
+        swal("Incorrect Password", "The password didn't match", "error");
+      }
     }
   }
 
@@ -86,7 +91,7 @@ export default class TodoItem extends Component {
                 this.hashTodo();
               }}
             >
-              Convert to {this.state.crypted ? "String" : "Bin"}
+              {this.state.crypted ? "Uncrypt" : "Crypt"}
             </button>
             <button
               className="btn btn-warn linedTodo"
